@@ -1,0 +1,59 @@
+#!/bin/bash
+debug=0;
+dbg()
+{
+    if test ${debug} -ne 0;
+    then
+        echo $@;
+    fi
+}
+
+master='LVDS1';
+master_resol='1366x768';
+
+try_slave()
+{
+    local slave=$1;
+    local slave_resol='';
+
+    slave_resol=`xrandr |grep ${slave} -A1 |tail -n1|awk '{print $1}'`;
+    if test -n "${slave_resol}";
+    then
+        echo "${slave}@${slave_resol}";
+    else
+        dbg "not found resolution: ${slave_resol}";
+    fi
+}
+xrandr |grep "\bdisconnected\b"|awk '{print $1}'|while read dev;
+do
+    xrandr --output ${dev} --off;
+done;
+last=''
+xrandr |grep "\bconnected\b"|awk '{print $1}'|while read dev;
+do
+    if test "${dev}" != "${master}";
+    then
+        dbg "dev now: '${dev}'";
+        device=`try_slave ${dev}`;
+        dbg "${device}";
+        slave=$(echo ${device} | cut -f1 -d'@')
+        slave_resol=$(echo ${device} | cut -f2 -d'@')
+        if test -z ${last};
+        then
+            dbg xrandr --output ${slave} --mode ${slave_resol} --left-of ${master};
+            xrandr --output ${slave} --mode ${slave_resol} --left-of ${master};
+            last=${slave};
+        else
+            dbg xrandr --output ${slave} --mode ${slave_resol} --left-of ${last};
+            xrandr --output ${slave} --mode ${slave_resol} --left-of ${last};
+        fi
+    fi
+done;
+xrandr --output ${master} --mode ${master_resol}
+xrandr --output ${master} --primary
+
+#Screen 0: minimum 320 x 200, current 1366 x 768, maximum 32767 x 32767
+#LVDS1 connected 1366x768+0+0 (normal left inverted right x axis y axis) 309mm x 174mm
+#   1366x768       60.0*+   40.0  
+#HDMI1 connected (normal left inverted right x axis y axis)
+#   1440x900       60.0 +   75.0  
