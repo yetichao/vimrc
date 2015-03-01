@@ -1,0 +1,11 @@
+[color]
+	ui = auto
+[alias]
+	st = status -s
+	co = checkout
+	br = branch
+	last = diff HEAD^ HEAD
+	cp = cherry-pick
+[user]
+	name = qinghao
+	email = qingxianhao@gmail.com
