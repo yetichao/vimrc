@@ -85,6 +85,8 @@ alias phpunit='phpunit --stderr'
 #midnight commander
 alias mc='mc --nocolor'
 alias caja='caja --no-desktop'
+alias rsync='rsync --progress'
+alias wget='wget -N'
 
 #path settings
 path_basic=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/bin
