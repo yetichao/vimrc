@@ -1,0 +1,7 @@
+killall aplay;
+rm -f ${tmp} ${tmp}.wav
+tmp=/tmp/ptalk$RANDOM
+xsel |tee $tmp && \
+pico2wave -w ${tmp}.wav "`cat $tmp`" && \
+aplay ${tmp}.wav
+rm -f ${tmp} ${tmp}.wav

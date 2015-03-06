@@ -1,0 +1,15 @@
+killall espeak;
+killall aplay;
+rm -f ${tmp} ${tmp}.wav
+prefix=/tmp/ptalk
+tmp=${prefix}$RANDOM
+xsel |tee $tmp && \
+pico2wave -w ${tmp}.wav "`cat $tmp`" && \
+set -x
+#if [ `cat $tmp |wc -c ` -ge 200 ]; then
+#    killall aplay;
+#    aplay -vv $0.wav
+#fi
+killall aplay;
+aplay -vv ${tmp}.wav
+rm -f ${prefix}*

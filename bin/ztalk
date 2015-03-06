@@ -1,0 +1,3 @@
+killall espeak;
+killall aplay;
+espeak -v zh "`xsel`"
