@@ -1,0 +1,6 @@
+#user.name=xianhao.qing
+#user.email=xianhao.qing@ck-telecom.com
+git clone $@ && \
+cd `ls -tr |tail -1` && \
+git config user.name qinghao && \
+git config user.email qingxianhao@gmail.com
