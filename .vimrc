@@ -77,4 +77,4 @@ set cmdheight=1
 set autoread
 "autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost ~/.vimrc source %
-source ~/.vim-as-a-python-ide.rc
+source ~/.vim-as-a-python-ide.vimrc
