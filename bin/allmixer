@@ -1,0 +1,3 @@
+set -x
+amixer -q set Master $@
+amixer -q set PCM $@

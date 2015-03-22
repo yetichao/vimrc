@@ -1,0 +1,1 @@
+sudo mount -t vfat -o codepage=936,iocharset=utf8,shortname=winnt $*

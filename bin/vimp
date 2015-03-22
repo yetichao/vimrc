@@ -1,0 +1,1 @@
+`which vim` `echo $1|awk -F':' '{print $1,"+"$2}'`

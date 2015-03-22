@@ -1,0 +1,29 @@
+#!/bin/sh
+rm -f cscope.*
+rm -f tags
+
+append_path()
+{
+    local types="";
+    types="${types} \.c|h|cpp *.hpp";
+    local path=$1;
+    local options="echo ${types}";
+    find ${path} -type f -print | \
+    egrep '([Mm]akefile|c|h|(cpp)|(hpp)|(xml))$' | \
+    tee cscope.files;
+}
+path='';
+if test $# -eq 0;
+then
+    path='.';
+    append_path $path;
+else
+    while test $# -ge 1;
+    do
+        path=$1;
+        append_path $path;
+    done;
+fi
+cscope -bkq -i cscope.files
+ctags -L cscope.files
+cscope -p3

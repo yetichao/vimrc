@@ -1,0 +1,24 @@
+#!/bin/bash
+function log
+{
+    echo $*;
+    $*;
+    return $?;
+}
+debug()
+{
+    echo $1
+    read hole;
+}
+pkgname='';
+i=1
+adb shell ps | awk '{print $9}' |grep "^\w*\(\.\w*\)\+" | while read pkg;
+do
+    pkg=`echo $pkg |head -c -2`;
+    echo -e "[$i]$pkg\t";
+    ((i=i + 1));
+done;
+read -p "Which package: " num;
+pkgname=`adb shell ps | awk '{print $9}' |grep "^\w*\(\.\w*\)\+"|head -n ${num} |tail -n1 |head -c -2`;
+echo ${pkgname};
+adb shell am force-stop ${pkgname};
