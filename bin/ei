@@ -1,0 +1,6 @@
+set -x
+reason="$@"
+sudo emerge "$reason"  && \
+cd /etc/ && \
+sudo git add  --all . && \
+sudo git commit -m "$reason"
